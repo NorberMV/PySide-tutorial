@@ -1,4 +1,5 @@
 # Following this tutorial here: https://www.pythonguis.com/tutorials/pyside-creating-your-first-window/
+# More widgets from: https://doc.qt.io/qt-5/widget-classes.html#basic-widget-classes[QWidget%20documentation]
 
 import sys
 from PySide2.QtCore import QSize, Qt
@@ -10,6 +11,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle('Widget Demo App!')
+        # Try other widgets
         widget = QSlider()
         # Set the central widget of the window.
         self.setCentralWidget(widget)
