@@ -13,6 +13,8 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Widget Demo App!')
         # Try other widgets
         widget = QSlider()
+        # Fixed size window
+        self.setFixedSize(QSize(400, 300))
         # Set the central widget of the window.
         self.setCentralWidget(widget)
 
