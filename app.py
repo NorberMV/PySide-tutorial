@@ -3,7 +3,7 @@
 
 import sys
 from PySide2.QtCore import QSize, Qt
-from PySide2.QtWidgets import QApplication, QMainWindow, QSlider
+from PySide2.QtWidgets import QApplication, QMainWindow, QSlider, QPushButton
 
 # Subclass QMainWindow to customize the application´s main window
 class MainWindow(QMainWindow):
@@ -12,11 +12,18 @@ class MainWindow(QMainWindow):
 
         self.setWindowTitle('Widget Demo App!')
         # Try other widgets
-        widget = QSlider()
-        # Fixed size window
-        self.setFixedSize(QSize(400, 300))
+        button = QPushButton("Press Me!")
+        button.setCheckable(True)
+        button.clicked.connect(self.the_button_was_clicked)
         # Set the central widget of the window.
-        self.setCentralWidget(widget)
+        self.setCentralWidget(button)
+
+    def the_button_was_clicked(self):
+        """
+        A custom slot to receive the
+        signal from the button.
+        """
+        print('Clicked!')
 
 
 if __name__ == '__main__':
