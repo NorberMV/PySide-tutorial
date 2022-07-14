@@ -18,12 +18,12 @@ class MainWindow(QMainWindow):
         # Set the central widget of the window.
         self.setCentralWidget(button)
 
-    def the_button_was_clicked(self):
+    def the_button_was_clicked(self, checked):
         """
         A custom slot to receive the
         signal from the button.
         """
-        print('Clicked!')
+        print(f'Clicked!, state: {checked}')
 
 
 if __name__ == '__main__':
