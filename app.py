@@ -1,6 +1,6 @@
 # Following this tutorial here: https://www.pythonguis.com/tutorials/pyside-creating-your-first-window/
 # More widgets from: https://doc.qt.io/qt-5/widget-classes.html#basic-widget-classes[QWidget%20documentation]
-# This connect the widgets QLineEdit and QLabel
+# This connect the widgets QLineEdit and QLabel, any text typed in the input inmediately appears on the label
 
 import sys
 from PySide2.QtCore import QSize, Qt
