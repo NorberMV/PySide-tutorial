@@ -1,35 +1,35 @@
 # Following this tutorial here: https://www.pythonguis.com/tutorials/pyside-creating-your-first-window/
 # More widgets from: https://doc.qt.io/qt-5/widget-classes.html#basic-widget-classes[QWidget%20documentation]
-# This updates the button, modify the button text and disabled the button so it is no longer clickable.
+# This connect the widgets QLineEdit and QLabel
 
 import sys
 from PySide2.QtCore import QSize, Qt
-from PySide2.QtWidgets import QApplication, QMainWindow, QSlider, QPushButton
+from PySide2.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QVBoxLayout, QWidget
+
+import sys
+from random import choice
 
 # Subclass QMainWindow to customize the application´s main window
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.checked_status = True
 
-        self.setWindowTitle('Widget Demo App!')
-        # Try other widgets
-        self.button = QPushButton("Press Me!")
-        self.button.setCheckable(True)
-        self.button.clicked.connect(self.the_button_was_clicked)
-        #self.button.setChecked(self.checked_status)
-        # Set the central widget of the window.
-        self.setCentralWidget(self.button)
+        self.setWindowTitle("My App")
 
-    def the_button_was_clicked(self):
-        """
-        A custom slot to receive the
-        signal from the button.
-        """
-        self.button.setText('You already click me!')
-        self.button.setEnabled(False)
-        # Also change the window Title
-        self.setWindowTitle('My Oneshot App')
+        self.label = QLabel()
+        self.input = QLineEdit()
+        self.input.textChanged.connect(self.label.setText)
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.input)
+        layout.addWidget(self.label)
+
+        container = QWidget()
+        container.setLayout(layout)
+
+        # Set the central Widget of the window
+        self.setCentralWidget(container)
+
 
 
 if __name__ == '__main__':
