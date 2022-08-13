@@ -12,7 +12,10 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("My Dev App")
 
+        # Also we can modify the  QSlider orientation by
+        # passing the orientation flag: widget = QSlider(Qt.Horizontal)
         widget = QSlider()
+
         widget.setMinimum(-10)
         widget.setMaximum(3)
 
