@@ -12,21 +12,19 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("My Dev App")
 
-    
         widget = QCheckBox("This is a checkbox!")
         widget.setCheckState(Qt.Checked)
         # Signal
         widget.stateChanged.connect(self.show_state)
 
-
-
         # Set the central widget of the window
         self.setCentralWidget(widget)
 
     def show_state(self, state):
+        # We can test using
+        # state == Qt.Checked
         print(state == Qt.Checked)
         print(state)
-        print(Qt.Checked)
 
 
 if __name__ == '__main__':
