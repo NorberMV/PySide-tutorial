@@ -3,7 +3,7 @@
 
 import sys
 from PySide2.QtCore import QSize, Qt
-from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QCheckBox
+from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QCheckBox, QComboBox
 
 
 # Subclass QMainWindow to customize your application´s main window.
@@ -12,19 +12,21 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("My Dev App")
 
-        widget = QCheckBox("This is a checkbox!")
-        widget.setCheckState(Qt.Checked)
+        widget = QComboBox()
+        widget.addItems(["Nintendo Switch", "Steam Deck", "Nintendo Switch Lite"])
+
         # Signal
-        widget.stateChanged.connect(self.show_state)
+        widget.currentIndexChanged.connect(self.index_changed)
+        widget.currentTextChanged.connect(self.text_changed)
 
         # Set the central widget of the window
         self.setCentralWidget(widget)
 
-    def show_state(self, state):
-        # We can test using
-        # state == Qt.Checked
-        print(state == Qt.Checked)
-        print(state)
+    def index_changed(self, i):
+        print(i)
+
+    def text_changed(self, s):
+        print(s)
 
 
 if __name__ == '__main__':
