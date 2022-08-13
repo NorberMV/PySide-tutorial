@@ -3,7 +3,7 @@
 
 import sys
 from PySide2.QtCore import QSize, Qt
-from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel
+from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QCheckBox
 
 
 # Subclass QMainWindow to customize your application´s main window.
@@ -12,20 +12,21 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("My Dev App")
 
-        #
-        widget = QLabel("My App")
-        # We also can setup the text with
-        # the method .setText()
-        widget.setText("Norber App!")
-        # You also can adjust font parameters
-        font = widget.font()
-        font.setPointSize(20)
-        widget.setFont(font)
-        widget.setAlignment(Qt.AlignHCenter | Qt.AlignVCenter)
+    
+        widget = QCheckBox("This is a checkbox!")
+        widget.setCheckState(Qt.Checked)
+        # Signal
+        widget.stateChanged.connect(self.show_state)
+
 
 
         # Set the central widget of the window
         self.setCentralWidget(widget)
+
+    def show_state(self, state):
+        print(state == Qt.Checked)
+        print(state)
+        print(Qt.Checked)
 
 
 if __name__ == '__main__':
