@@ -3,7 +3,7 @@
 
 import sys
 from PySide2.QtCore import QSize, Qt
-from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QCheckBox, QComboBox
+from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QCheckBox, QComboBox, QSlider
 
 
 # Subclass QMainWindow to customize your application´s main window.
@@ -12,21 +12,33 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("My Dev App")
 
-        widget = QComboBox()
-        widget.addItems(["Nintendo Switch", "Steam Deck", "Nintendo Switch Lite"])
+        widget = QSlider()
+        widget.setMinimum(-10)
+        widget.setMaximum(3)
+
+        widget.setSingleStep(3)
+
 
         # Signal
-        widget.currentIndexChanged.connect(self.index_changed)
-        widget.currentTextChanged.connect(self.text_changed)
+        widget.valueChanged.connect(self.value_changed)
+        widget.sliderMoved.connect(self.slider_position)
+        widget.sliderPressed.connect(self.slider_pressed)
+        widget.sliderReleased.connect(self.slider_released)
 
         # Set the central widget of the window
         self.setCentralWidget(widget)
 
-    def index_changed(self, i):
+    def value_changed(self, i):
         print(i)
 
-    def text_changed(self, s):
-        print(s)
+    def slider_position(self, p):
+        print("Position", p)
+
+    def slider_pressed(self):
+        print("Pressed!")
+
+    def slider_released(self):
+        print("Released!")
 
 
 if __name__ == '__main__':
