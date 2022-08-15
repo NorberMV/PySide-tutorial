@@ -3,7 +3,7 @@
 
 import sys
 from PySide2.QtCore import QSize, Qt
-from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QCheckBox, QComboBox, QSlider
+from PySide2.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QCheckBox, QComboBox, QSlider, QDial
 
 
 # Subclass QMainWindow to customize your application´s main window.
@@ -12,17 +12,12 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("My Dev App")
 
-        # Also we can modify the  QSlider orientation by
-        # passing the orientation flag: widget = QSlider(Qt.Horizontal)
-        widget = QSlider()
 
-        widget.setMinimum(-10)
-        widget.setMaximum(3)
+        widget = QDial()
+        widget.setRange(-10, 100)
+        widget.setSingleStep(0.5)
 
-        widget.setSingleStep(3)
-
-
-        # Signal
+        # Signal (The signals are the same for the QSlider and retain the same names.)
         widget.valueChanged.connect(self.value_changed)
         widget.sliderMoved.connect(self.slider_position)
         widget.sliderPressed.connect(self.slider_pressed)
