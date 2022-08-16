@@ -1,7 +1,7 @@
 # PySide-tutorial
 PySide2 Tutorial from: https://www.pythonguis.com/tutorials/pyside-creating-your-first-window/
 
-# This Project Branches
+### This Project Branches
 
 1.Signals_Slots_And_Events
 
