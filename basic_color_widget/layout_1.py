@@ -1,7 +1,7 @@
 
 import sys
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+from PySide2.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QHBoxLayout
 
 from layout_colorwidget import Color
 
@@ -28,12 +28,19 @@ class MainWindow(QMainWindow):
         # In order to add the layout we
         # need to Create a dummy widget
         widget = QWidget()
-        # Create the vertical layout
-        lay = QVBoxLayout()
+        # Create the layouts
+        lay_1 = QHBoxLayout()
+        lay_2 = QVBoxLayout()
+        lay_3 = QHBoxLayout()
 
-        for color in colors:
-            lay.addWidget(Color(color))
-        widget.setLayout(lay)
+        layouts = [lay_2, lay_1, lay_3]
+
+        for lay in layouts:
+            for color in colors:
+                lay.addWidget(Color(color))
+            # Nest the layout
+            lay_1.addLayout(lay)
+        widget.setLayout(lay_1)
 
         return widget
 
