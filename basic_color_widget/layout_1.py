@@ -39,6 +39,8 @@ class MainWindow(QMainWindow):
                 lay.addWidget(Color(color))
             # Nest the layout
             lay_1.addLayout(lay)
+        # set the layout to the dummy
+        # widget
         widget.setLayout(lay_1)
 
         return widget
