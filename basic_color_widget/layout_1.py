@@ -22,8 +22,7 @@ class MainWindow(QMainWindow):
 
     def add_more_colors(self, colors="orange"):
         """A simple function to add
-        the Color widgets to a Vertical
-        layout.
+        the Color widget by nesting layouts.
         """
         # In order to add the layout we
         # need to Create a dummy widget
