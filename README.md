@@ -22,3 +22,14 @@ PySide2 Tutorial from: https://www.pythonguis.com/tutorials/pyside-creating-your
 5.4.Widgets_Demo_QDial
 
 6.Basic_Color_Custom_Widget
+
+7.QVBoxLayout_colors_Custom_Widget
+
+8.Nesting_layouts
+
+9.PowerBar_Widget
+
+
+
+
+
