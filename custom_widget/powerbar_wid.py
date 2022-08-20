@@ -33,7 +33,7 @@ class PowerBar(QtWidgets.QWidget):
         self._dial = QtWidgets.QDial()
         # Add it to our layout
         layout.addWidget(self._dial)
-        # Apply the layout to the widget
+        # Apply the layout to the widget    
         self.setLayout(layout)
 
 # Entry Point
