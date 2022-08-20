@@ -8,7 +8,7 @@ from PySide2.QtWidgets import QLabel
 class _Bar(QtWidgets.QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
+        #
         self.setSizePolicy(
             QtWidgets.QSizePolicy.MinimumExpanding,
             QtWidgets.QSizePolicy.MinimumExpanding,
@@ -25,6 +25,27 @@ class _Bar(QtWidgets.QWidget):
         rect = QtCore.QRect(0, 0, painter.device().width(), painter.device().height())
         painter.fillRect(rect, brush)
 
+        # Get the current state
+
+        # Accessing the PowerBar widget
+        dial = self.parent()._dial
+        vmin, vmax = dial.minimum(), dial.maximum()
+        value = dial.value()
+
+        pen = painter.pen()
+        pen.setColor(QtGui.QColor("red"))
+        painter.setPen(pen)
+
+        font = painter.font()
+        font.setFamily("Times")
+        font.setPointSize(18)
+        painter.setFont(font)
+
+        painter.drawText(25, 25, "{}-->{}<--{}".format(vmin, value, vmax))
+        painter.end()
+
+    def trigger_refresh(self):
+        self.update()
 
 class PowerBar(QtWidgets.QWidget):
     """
@@ -43,6 +64,7 @@ class PowerBar(QtWidgets.QWidget):
         layout.addWidget(self._bar)
         # Call the built-in QDial() widget
         self._dial = QtWidgets.QDial()
+        self._dial.valueChanged.connect(self._bar.trigger_refresh)
         # Add it to our layout
         layout.addWidget(self._dial)
         # Apply the layout to the widget
