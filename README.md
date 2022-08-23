@@ -29,6 +29,9 @@ PySide2 Tutorial from: https://www.pythonguis.com/tutorials/pyside-creating-your
 
 9.PowerBar_Widget
 
+9.1.PoweBar_Widget_Building_Bars
+
+
 
 
 
