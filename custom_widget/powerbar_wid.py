@@ -31,7 +31,7 @@ class _Bar(QtWidgets.QWidget):
         vmin, vmax = dial.minimum(), dial.maximum()
         value = dial.value()
 
-        # Obtain a number between 0 - 5 from the
+        # Obtain a number between 0 - 6 from the
         # dial.
         pc = ((value - vmin)/(vmax - vmin))
         n_steps_to_draw = int(pc * 6)
@@ -39,7 +39,7 @@ class _Bar(QtWidgets.QWidget):
         # Padding dimensions
         padding = 5
 
-        # Define our canvas
+        # Define the bars canvas
         d_height = painter.device().height() - (padding * 2)
         d_width = painter.device().width() - (padding * 2)
 
