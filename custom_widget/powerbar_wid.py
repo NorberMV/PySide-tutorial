@@ -26,7 +26,6 @@ class _Bar(QtWidgets.QWidget):
         painter.fillRect(rect, brush)
 
         # Get the current state
-
         # Accessing the PowerBar widget
         dial = self.parent()._dial
         vmin, vmax = dial.minimum(), dial.maximum()
@@ -41,7 +40,11 @@ class _Bar(QtWidgets.QWidget):
         font.setPointSize(18)
         painter.setFont(font)
 
-        painter.drawText(25, 25, "{}-->{}<--{}".format(vmin, value, vmax))
+        # Obtain a number between 0 - 5 from the
+        # dial.
+        pc = ((value - vmin)/(vmax - vmin))
+        n_steps_to_draw = int(pc * 5)
+        painter.drawText(25, 25, "{}".format(n_steps_to_draw))
         painter.end()
 
     def trigger_refresh(self):
