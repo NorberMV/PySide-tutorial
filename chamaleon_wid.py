@@ -8,8 +8,7 @@ from PySide6.QtWidgets import QApplication, QPushButton, QVBoxLayout, QLabel
 
 
 class Chamaleon(QtWidgets.QWidget):
-
-    # This is just a Custom Widget.
+    """ Chamaleon Widget."""
     def __init__(self):
         super().__init__()
         # size Size Policy
@@ -37,7 +36,6 @@ class Chamaleon(QtWidgets.QWidget):
 
     def paintEvent(self, e):
         # Pick background Color
-        #color = random.choice(self.color)
         if self.count != len(self.color):
             color = self.color[self.count]
             self.count += 1
@@ -46,6 +44,7 @@ class Chamaleon(QtWidgets.QWidget):
             # black color by default and Reset count
             color = "green"
             self.count = 0
+
         painter = QtGui.QPainter(self)
         brush = QtGui.QBrush()
         brush.setColor(QtGui.QColor(color))
@@ -54,12 +53,11 @@ class Chamaleon(QtWidgets.QWidget):
         painter.fillRect(rect, brush)
 
     def _add_label(self, label_text):
+        # Label settings
         label = QLabel(label_text)
         label.setAlignment(
             Qt.AlignTop | Qt.AlignHCenter,
         )
-        #label.resize(60, 60)
-        #label.move(440, 10)
         label.setStyleSheet("border: 1.5px solid purple;")
         self.lay.addWidget(label)
 
@@ -69,9 +67,6 @@ class Chamaleon(QtWidgets.QWidget):
 
     def trigger_refresh(self):
         self.update()
-
-
-
 
 
 class MyWid(QtWidgets.QWidget):
@@ -90,7 +85,7 @@ class MyWid(QtWidgets.QWidget):
 
 # Entry Point
 if __name__=="__main__":
-    print("This is awesome!")
+
     app = QApplication(sys.argv)
     MyWid = MyWid()
     MyWid.show()
