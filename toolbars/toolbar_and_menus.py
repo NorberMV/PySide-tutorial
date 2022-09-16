@@ -1,39 +1,86 @@
 
+# import sys
+# from PySide6.QtCore import QSize, Qt
+# from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QCheckBox, QComboBox, QSlider, QDial, QToolBar, QStatusBar
+# from PySide6.QtGui import QAction, QIcon
+
 import sys
+
 from PySide6.QtCore import QSize, Qt
-from PySide6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QCheckBox, QComboBox, QSlider, QDial, QToolBar
-from PySide6.QtGui import QAction
+from PySide6.QtGui import QAction, QIcon
+from PySide6.QtWidgets import (
+    QApplication,
+    QCheckBox,
+    QLabel,
+    QMainWindow,
+    QStatusBar,
+    QToolBar,
+)
 
+# class MainWindow(QMainWindow):
+#     def __init__(self):
+#         super().__init__()
+#
+#         self.setWindowTitle("My App!")
+#         label = QLabel("Hello!")
+#         label.setAlignment(
+#             Qt.AlignCenter
+#         )
+#         self.setCentralWidget(label)
+#         toolbar = QToolBar("My Main Toolbar!")
+#         # Modifies the size of the toolbar
+#         toolbar.setIconSize(QSize(16, 16))
+#         self.addToolBar(toolbar)
 
+        # Add action
+        #button_action = QAction(QIcon("./resources/icons/skull-mad.png"), self.tr("Your button"), self)
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("My App!")
+        self.setWindowTitle("My App")
+
         label = QLabel("Hello!")
-        label.setAlignment(
-            Qt.AlignCenter
-        )
+        label.setAlignment(Qt.AlignCenter)
+
         self.setCentralWidget(label)
-        toolbar = QToolBar("My Main Toolbar!")
+
+        toolbar = QToolBar("My main toolbar")
+        toolbar.setIconSize(QSize(16, 16))
         self.addToolBar(toolbar)
 
-        # Add action
-        button_action = QAction("Your button", self)
-        button_action.setStatusTip("This is your button!")
+        button_action = QAction(QIcon("./resources/icons/skull-mad.png"), "&Your button", self)
+        button_action.setStatusTip("This is your button")
         button_action.triggered.connect(self.onMyToolBarButtonClick)
-        # Set Action to the toolbar
+        button_action.setCheckable(True)
         toolbar.addAction(button_action)
 
+        toolbar.addSeparator()
+
+        button_action2 = QAction(QIcon("./resources/icons/skull-mad.png"), "Your &button2", self)
+        button_action2.setStatusTip("This is your button2")
+        button_action2.triggered.connect(self.onMyToolBarButtonClick)
+        button_action2.setCheckable(True)
+        toolbar.addAction(button_action2)
+
+        toolbar.addWidget(QLabel("Hello"))
+        toolbar.addWidget(QCheckBox())
+
+        self.setStatusBar(QStatusBar(self))
+
+        menu = self.menuBar()
+
+        file_menu = menu.addMenu("&File")
+        file_menu.addAction(button_action)
+        file_menu.addSeparator()
+        file_menu.addAction(button_action2)
+
     def onMyToolBarButtonClick(self, s):
-        print("Click!", s)
-
-
-
+        print("click", s)
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
-    app.exec()
+    app.exec_()
