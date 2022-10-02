@@ -1,0 +1,6 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+    <qresource prefix="icons">
+        <file alias="skullIcon.png">skull-mad.png</file>
+    </qresource>
+</RCC>
