@@ -1,13 +1,17 @@
 
 import sys
+import os
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, QImage
 from PySide6.QtWidgets import QMainWindow, QApplication
 from resources import resources_rc
 
-
 from ui.todoMainWindow2 import Ui_MainWindow
+
+basedir = os.path.dirname(__file__)
+
+tick = QImage(os.path.join(basedir, "tick.png"))
 
 
 class TodoModel(QtCore.QAbstractListModel):
@@ -15,17 +19,20 @@ class TodoModel(QtCore.QAbstractListModel):
         super().__init__()
         # The .todos is our data store
         self.todos = todos or []
+
     # data() and rowCount() are standard Model
     # methods we must implement for a list model
     def data(self, index, role):
         if role == Qt.DisplayRole:
-            status, text = self.todos[index.row()]
+            _, text = self.todos[index.row()]
             return text
+        if role == Qt.DecorationRole:
+            status, _ = self.todos[index.row()]
+            if status:
+                return tick
     # This is requested by the view
     def rowCount(self, index):
         return len(self.todos)
-
-
 
 
 class MainWindow(QMainWindow, Ui_MainWindow):
@@ -37,6 +44,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.data = [(True, "Be really Awesome!"), (False, "Go to Cánada"), (True, "Buy a monitor")]
         # Fill the model with the data
         self.model = TodoModel(self.data)
+
         # Fill the view with the model
         self.listView.setModel(self.model)
         # Some extra button configuration
@@ -44,6 +52,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.pushButton.setIcon(QtGui.QIcon(icon))
         self.pushButton.clicked.connect(self.add)
         #self.pushButton.clicked.connect(self._refresh)
+        self.pushButton_2.pressed.connect(self.delete)
+        self.pushButton_4.pressed.connect(self.complete)
         self.show()
 
     def add(self):
@@ -52,7 +62,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         and then clearing it.
         """
         text = self.lineEdit.text()
-        text.strip() #Remove the withe space  from the ends of the strings
+        # Remove the withe space  from the ends of the strings
+        text.strip()
 
         # Don´t add empty strings
         if text:
@@ -69,7 +80,34 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     #     self.model.layoutChanged.emit()
     #     print(self.data)
 
+    def complete(self):
+        indexes = self.listView.selectedIndexes()
+        if indexes:
+            index = indexes[0]
+            row = index.row()
+            status, text = self.model.todos[row]
+            # This needs to be overridden because tuples are immutable
+            self.model.todos[row] = (True, text)
+            # .dataChanged takes top-left and bottom right, which are equal
+            # For a single selection
+            self.model.dataChanged.emit(index, index)
+            # Clear the selection (as it is no longer valid)
+            self.listView.clearSelection()
 
+        print("Complete!")
+
+    def delete(self):
+        indexes = self.listView.selectedIndexes()
+        if indexes:
+            # Indexes is a list of a single item in single-select mode.
+            index = indexes[0]
+            # Remove the item and refresh.
+            del self.model.todos[index.row()]
+            self.model.layoutChanged.emit()
+            # Clear the selection (as it is no longer valid)
+            self.listView.clearSelection()
+
+        print("Delete!")
 
 
 
