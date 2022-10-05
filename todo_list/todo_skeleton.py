@@ -1,6 +1,7 @@
 
 import sys
 import os
+import json
 from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap, QImage
@@ -23,13 +24,16 @@ class TodoModel(QtCore.QAbstractListModel):
     # data() and rowCount() are standard Model
     # methods we must implement for a list model
     def data(self, index, role):
+        # Handler for the Qt.DisplayRole
         if role == Qt.DisplayRole:
             _, text = self.todos[index.row()]
             return text
+        # Handler for the Qt.DecorationRole
         if role == Qt.DecorationRole:
             status, _ = self.todos[index.row()]
             if status:
                 return tick
+
     # This is requested by the view
     def rowCount(self, index):
         return len(self.todos)
@@ -44,7 +48,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.data = [(True, "Be really Awesome!"), (False, "Go to Cánada"), (True, "Buy a monitor")]
         # Fill the model with the data
         self.model = TodoModel(self.data)
-
+        # Load the data
+        self.load()
         # Fill the view with the model
         self.listView.setModel(self.model)
         # Some extra button configuration
@@ -73,6 +78,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.model.layoutChanged.emit()
             # Empty the input
             self.lineEdit.setText("")
+            self.save()
 
     # My attempt to add items to the view :)
     # def _refresh(self):
@@ -93,6 +99,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.model.dataChanged.emit(index, index)
             # Clear the selection (as it is no longer valid)
             self.listView.clearSelection()
+            self.save()
 
         print("Complete!")
 
@@ -108,6 +115,17 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.listView.clearSelection()
 
         print("Delete!")
+
+    def load(self):
+        try:
+            with open(os.path.join(basedir,"data.json"), "r") as f:
+                self.model.todos = json.load(f)
+        except Exception as e:
+            print("an exception has occurred!")
+
+    def save(self):
+        with open(os.path.join(basedir, "data.json"), "w") as f:
+            data = json.dump(self.model.todos, f)
 
 
 
