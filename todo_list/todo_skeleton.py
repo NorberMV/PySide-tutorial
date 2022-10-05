@@ -11,7 +11,7 @@ from ui.todoMainWindow2 import Ui_MainWindow
 
 basedir = os.path.dirname(__file__)
 
-tick = QImage(os.path.join(basedir, "tick.png"))
+tick = QImage(os.path.join(basedir, "resources/tick.png"))
 
 
 class TodoModel(QtCore.QAbstractListModel):
